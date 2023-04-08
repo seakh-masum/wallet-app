@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "428638716667",
+    "project_id": "skm-admin",
+    "storage_bucket": "skm-admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428638716667:android:3107c7599e1c87fbb6a65e",
+        "android_client_info": {
+          "package_name": "com.wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428638716667-keck9ag9najcpiv761ofqnurj0ip172k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ5miLZ6vJpG9oEau-Dnjz9muuLG9CbyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428638716667-keck9ag9najcpiv761ofqnurj0ip172k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428638716667:android:49c006bd24acae21b6a65e",
+        "android_client_info": {
+          "package_name": "com.wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428638716667-keck9ag9najcpiv761ofqnurj0ip172k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ5miLZ6vJpG9oEau-Dnjz9muuLG9CbyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428638716667-keck9ag9najcpiv761ofqnurj0ip172k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
