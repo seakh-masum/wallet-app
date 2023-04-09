@@ -55,19 +55,23 @@ const AddCardScreen = ({route, navigation}) => {
 
     if (id) {
       updateFireStoreData(FIRESTORE_PATH.card, data, id).then(() => {
-          showAlert('Update Card', 'Card updated successfully', 'Ok', navigate('Home'));
+          showAlert('Update Card', 'Card updated successfully', 'Ok', navigate('Cards'));
         }).catch();
     } else {
       addFirestoreData(FIRESTORE_PATH.card, data)
         .then(() => {
-          showAlert('Add Card', 'Card added successfully', 'Ok', navigate('Home'));
+          showAlert('Add Card', 'Card added successfully', 'Ok', navigate('Cards'));
         })
         .catch();
     }
   };
 
   const navigate = (path) => {
-    navigation.navigate(path);
+    // navigation.navigate(path);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: path }]
+    })
   };
 
   return (
