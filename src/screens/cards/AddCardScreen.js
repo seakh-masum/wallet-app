@@ -67,7 +67,6 @@ const AddCardScreen = ({ route, navigation }) => {
   };
 
   const navigate = (path) => {
-    // navigation.navigate(path);
     navigation.reset({
       index: 0,
       routes: [{ name: path }]

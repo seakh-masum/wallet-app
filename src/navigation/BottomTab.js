@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CardScreen from '../screens/cards/CardScreen';
 import DocScreen from '../screens/docs/DocScreen';
 import CreditCardIcon from '../styles/icon/CreditCardIcon';
-import TabScreen from './TabScreen';
 import DocIcon from '../styles/icon/DocIcon';
 import { StyleSheet, View, Text } from 'react-native';
 import FloatingAddBtn from '../components/FloatingAddBtn';
@@ -16,7 +15,10 @@ export default function BottomTab() {
   const setTabConfig = (route, focused) => {
     if (route.name === 'Cards') {
       return (
-        <View className={`${focused && 'flex-row gap-1 items-center bg-pink-100 rounded-3xl pl-3 pr-4 pt-1 pb-2 transition-all'}`}>
+        <View
+          className={`${focused ?
+            'flex-row gap-1 items-center bg-pink-100 rounded-3xl pl-3 pr-4 pt-1 pb-2' : 'mb-1'
+            }`}>
           <CreditCardIcon
             fill={focused ? Colors.pink : '#000'}
             isFocus={focused}
@@ -28,18 +30,23 @@ export default function BottomTab() {
       );
     } else if (route.name === 'Docs') {
       return (
-        <View className={`${focused && 'flex-row gap-1 items-center bg-indigo-100 rounded-3xl pl-3 pr-4 pt-1 pb-2'}`}>
-          <DocIcon fill={focused ? Colors.violet : '#000'} isFocus={focused} height={focused ? 24 : 30}
-            width={focused ? 24 : 30} />
+        <View
+          className={`${focused ?
+            'flex-row gap-1 items-center bg-indigo-100 rounded-3xl pl-3 pr-4 pt-1 pb-2' : 'mb-1'
+            }`}>
+          <DocIcon
+            fill={focused ? Colors.violet : '#000'}
+            isFocus={focused}
+            height={focused ? 24 : 32}
+            width={focused ? 24 : 32}
+          />
           {focused && <Text className="text-indigo-500">Docs</Text>}
         </View>
       );
     } else if (route.name === 'Add') {
-      return (
-        <FloatingAddBtn />
-      );
+      return <FloatingAddBtn />;
     }
-  }
+  };
 
   return (
     <Tab.Navigator
@@ -52,7 +59,6 @@ export default function BottomTab() {
         tabBarShowLabel: false,
       })}>
       <Tab.Screen name="Cards" component={CardScreen} />
-      {/* <Tab.Screen name="Add" component={TabScreen.AddDrawer} /> */}
       <Tab.Screen name="Docs" component={DocScreen} />
     </Tab.Navigator>
   );

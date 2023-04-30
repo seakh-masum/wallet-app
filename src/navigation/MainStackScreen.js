@@ -5,8 +5,6 @@ import BottomTab from './BottomTab';
 import AddCardScreen from '../screens/cards/AddCardScreen';
 import AddDocScreen from '../screens/docs/AddDocScreen';
 import PasscodeScreen from '../screens/passcode/PasscodeScreen';
-// import HomeScreen from '../screens/HomeScreen';
-// import AddCardScreen from '../screens/AddCardScreen';
 
 const main = createNativeStackNavigator();
 
