@@ -15,7 +15,6 @@ const App = () => {
   const colorScheme = useColorScheme();
 
   const backgroundStyle = {
-    // backgroundColor: colorScheme === 'dark' ? '#0c0a09' : '#f5f5f5',
     flex: 1,
   };
 
