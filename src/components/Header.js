@@ -1,39 +1,39 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import ArrowBackIcon from '../../assets/svg/arrow_back.svg';
 import { useNavigation } from '@react-navigation/native';
 import { Fonts } from '../styles/typography';
-import { Colors } from '../styles/colors';
-import { Mixins } from '../styles/mixins';
+import AddIcon from '../styles/icon/AddIcon';
 
-const Header = ({title, hasBackBtn}) => {
+
+const Header = ({ title, isAddPage, onAdd }) => {
   const navigation = useNavigation();
-  
-  const styleSheet = StyleSheet.create({
-    headerStyle: {
-      ...Mixins.flexAlign('row', 'center'),
-      backgroundColor: Colors.surface,
-      paddingVertical: 16,
-      paddingHorizontal: 12,
-    },
-    title: {
-      fontSize: 32,
-      color: Colors.heading,
-      marginLeft: !hasBackBtn ? -12 : 0,
-      fontFamily: Fonts.montserratSemiBold
-    },
-    backBtnWrapper: {marginRight: 8},
-  });
 
   return (
-    <View style={styleSheet.headerStyle}>
-      {hasBackBtn && (
-        <TouchableOpacity onPress={()=> navigation.goBack()} style={styleSheet.backBtnwrapper}>
-          <ArrowBackIcon />
+    <View className="flex-row items-center justify-between bg-neutral-100 py-4">
+      <View className="flex-row gap-1 items-center">
+        {isAddPage && (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <ArrowBackIcon />
+          </TouchableOpacity>
+        )}
+        <Text style={{
+          fontFamily: Fonts.montserratSemiBold
+        }} className="text-3xl text-black">{title}</Text>
+      </View>
+      {!isAddPage &&
+        <TouchableOpacity style={{
+          elevation: 20,
+          shadowOffset: {
+            height: 8,
+            width: 8,
+          },
+          shadowColor: '#000',
+        }} className="bg-black p-1 rounded-full " onPress={onAdd}>
+          <AddIcon fill="#fff" height={24} width={24} />
         </TouchableOpacity>
-      )}
-      <Text style={styleSheet.title}>{title}</Text>
+      }
     </View>
   );
 };

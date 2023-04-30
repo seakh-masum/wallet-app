@@ -1,17 +1,16 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
-import {FlatList, View, Alert, ActivityIndicator} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View, Alert, ActivityIndicator } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import Header from '../../components/Header';
 import ViewDocScreen from './ViewDocScreen';
-import {deleteFirestoreData} from '../../services/firestore';
-import {FIRESTORE_PATH} from '../../shared/constant';
-import {ListStyles} from '../../styles/global-style';
+import { deleteFirestoreData } from '../../services/firestore';
+import { FIRESTORE_PATH } from '../../shared/constant';
 import Card from '../../components/Card';
 import BottomSheet from '../../components/BottomSheet';
 import { Colors } from '../../styles/colors';
 
-const DocScreen = ({navigation}) => {
+const DocScreen = ({ navigation }) => {
   const [docs, setDocs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -49,7 +48,7 @@ const DocScreen = ({navigation}) => {
   const onEditCard = data => {
     closeViewModal();
     setTimeout(() => {
-      navigation.navigate('AddDoc', {data});
+      navigation.navigate('AddDoc', { data });
     }, 100);
   };
 
@@ -76,14 +75,18 @@ const DocScreen = ({navigation}) => {
       .catch(err => console.log(err));
   };
 
+  const onAddDoc = () => {
+    navigation.navigate('AddDoc');
+  };
+
   if (loading) {
     return <ActivityIndicator size="large" color="#00ff00" />;
   }
 
   return (
-    <View style={ListStyles.container}>
-      <View style={ListStyles.topRow}>
-        <Header title="Docs" />
+    <View className="flex-col flex-1 mx-3 bg-neutral-100">
+      <View className="py-5">
+        <Header title="Docs" onAdd={onAddDoc} />
       </View>
       <BottomSheet modalVisible={modalVisible} setModalVisible={setModalVisible}>
         <ViewDocScreen
@@ -92,23 +95,23 @@ const DocScreen = ({navigation}) => {
           onDelete={() => onDeleteCard(modalData.id)}
         />
       </BottomSheet>
-      {loading ? 
-      <View style={ListStyles.loadingContainer}>
-        <ActivityIndicator size="large" color={Colors.blue} /> 
-      </View> :
-      <FlatList
-        data={docs}
-        renderItem={({item, index}) => (
-          <Card
-            key={index}
-            data={item}
-            index={index}
-            onView={() => onViewCard(item)}
-            isDoc
-          />
-        )}
-        keyExtractor={item => item.id}
-      />}
+      {loading ?
+        <View className="flex-1 justify-center align-center">
+          <ActivityIndicator size="large" color={Colors.blue} />
+        </View> :
+        <FlatList
+          data={docs}
+          renderItem={({ item, index }) => (
+            <Card
+              key={index}
+              data={item}
+              index={index}
+              onView={() => onViewCard(item)}
+              isDoc
+            />
+          )}
+          keyExtractor={item => item.id}
+        />}
     </View>
   );
 };

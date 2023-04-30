@@ -1,16 +1,16 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
-import { Pressable, StyleSheet, FlatList } from 'react-native';
+import React from 'react';
+import { Pressable, FlatList } from 'react-native';
 import CheckCircle from '../../assets/svg/check_circle.svg';
 
 const ColorBox = ({ data, setValue, value }) => {
-   const renderItem = (({item, index})=> {
-      return (
-        <Pressable key={index} onPress={()=> setValue(item)} style={{...styles.box, backgroundColor: item}} >
-          {item === value && <CheckCircle />}
-        </Pressable>
-      );
-   });
+  const renderItem = (({ item, index }) => {
+    return (
+      <Pressable key={index} onPress={() => setValue(item)} className="rounded-3xl h-12 w-12 mr-3" style={{ backgroundColor: item }} >
+        {item === value && <CheckCircle />}
+      </Pressable>
+    );
+  });
 
 
   return (
@@ -23,12 +23,5 @@ const ColorBox = ({ data, setValue, value }) => {
   );
 
 };
-
-const styles = StyleSheet.create({
-  box: {
-    borderRadius: 24,
-    marginRight: 10, height: 48, width: 48,
-  },
-});
 
 export default ColorBox;

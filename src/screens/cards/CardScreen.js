@@ -1,24 +1,23 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
-import {FlatList, View, Alert, ActivityIndicator} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View, Alert, ActivityIndicator } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import Header from '../../components/Header';
 import Chips from '../../components/Chips';
 import ViewCardScreen from './ViewCardScreen';
 import Card from '../../components/Card';
-import {deleteFirestoreData} from '../../services/firestore';
-import {FIRESTORE_PATH} from '../../shared/constant';
-import {Colors} from '../../styles/colors';
-import {ListStyles} from '../../styles/global-style';
+import { deleteFirestoreData } from '../../services/firestore';
+import { FIRESTORE_PATH } from '../../shared/constant';
+import { Colors } from '../../styles/colors';
 import BottomSheet from '../../components/BottomSheet';
 
 const CARD_TYPE = [
-  {label: 'All', value: ''},
-  {label: 'Credit', value: 'credit'},
-  {label: 'Debit', value: 'debit'},
+  { label: 'All', value: '' },
+  { label: 'Credit', value: 'credit' },
+  { label: 'Debit', value: 'debit' },
 ];
 
-const CardScreen = ({navigation}) => {
+const CardScreen = ({ navigation }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cardType, setCardType] = useState('');
@@ -78,7 +77,7 @@ const CardScreen = ({navigation}) => {
   const onEditCard = data => {
     closeViewModal();
     setTimeout(() => {
-      navigation.navigate('AddCard', {data});
+      navigation.navigate('AddCard', { data });
     }, 100);
   };
 
@@ -105,10 +104,14 @@ const CardScreen = ({navigation}) => {
       .catch(err => console.log(err));
   };
 
+  const onAddCard = () => {
+    navigation.navigate('AddCard');
+  }
+
   return (
-    <View style={ListStyles.container}>
-      <View style={ListStyles.topRow}>
-        <Header title="Cards" />
+    <View className="flex-col flex-1 mx-3 bg-neutral-100">
+      <View className="py-5">
+        <Header title="Cards" onAdd={onAddCard} />
         <Chips
           data={CARD_TYPE}
           setValue={setCardType}
@@ -127,13 +130,13 @@ const CardScreen = ({navigation}) => {
         />
       </BottomSheet>
       {loading ? (
-        <View style={ListStyles.loadingContainer}>
+        <View className="flex-1 justify-center align-center">
           <ActivityIndicator size="large" color={Colors.pink} />
         </View>
       ) : (
         <FlatList
           data={cards}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <Card
               key={index}
               data={item}
