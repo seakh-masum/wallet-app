@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Text, Pressable, FlatList } from 'react-native';
+import { Text, Pressable, FlatList, useColorScheme } from 'react-native';
 
 
 const Chips = ({ data, setValue, setFilterValue, value, isFilter }) => {
+  const colorScheme = useColorScheme();
   const onSelect = x => {
     setValue(x);
     if (isFilter) {
@@ -16,13 +17,13 @@ const Chips = ({ data, setValue, setFilterValue, value, isFilter }) => {
   };
 
   const renderItem = ({ item, index }) => {
-    const bgColor = item.value == value ? '#000' : 'transparent';
-    const color = item.value == value ? 'white' : '#000';
+    const bgColor = item.value == value ? (colorScheme == 'dark' ? '#fff' : '#000') : 'transparent';
+    const color = item.value == value ? (colorScheme == 'dark' ? '#000' : '#fff') : (colorScheme == 'dark' ? '#fff' : '#000');
     return (
       <Pressable
         key={index}
         onPress={() => onSelect(item.value)}
-        style={{ backgroundColor: bgColor }} className="px-4 py-1 rounded-2xl border border-black mr-3">
+        style={{ backgroundColor: bgColor }} className="px-4 py-1 rounded-2xl border border-black mr-3 dark:border-white">
         <Text style={{ color: color }}>{item.label}</Text>
       </Pressable>
     );

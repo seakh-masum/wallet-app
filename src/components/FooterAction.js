@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, useColorScheme } from 'react-native';
 import EditIcon from '../styles/icon/EdiIcon';
 import DeleteIcon from '../styles/icon/DeleteIcon';
 import VisibilityOffIcon from '../styles/icon/VisibiltyOffIcon';
@@ -9,6 +9,7 @@ import { Mixins } from '../styles/mixins';
 import { Colors } from '../styles/colors';
 
 const FooterAction = ({ setIsShowCVV, isShowCVV, onEdit, onDelete, hasCvv }) => {
+  const colorScheme = useColorScheme();
   const styles = {
     actionBtn: {
       alignItems: 'center',
@@ -22,19 +23,19 @@ const FooterAction = ({ setIsShowCVV, isShowCVV, onEdit, onDelete, hasCvv }) => 
     },
   };
   return (
-    <View className="flex-row justify-around bg-white p-3">
+    <View className="flex-row justify-around bg-white p-3 dark:bg-neutral-950">
       {hasCvv && (
         <TouchableOpacity
           onPress={() => setIsShowCVV(!isShowCVV)}
           className="items-center p-2 rounded-2xl">
-          {!isShowCVV ? <VisibilityIcon /> : <VisibilityOffIcon />}
+          {!isShowCVV ? <VisibilityIcon fill={colorScheme == 'dark' ? '#fff' : '#000'} /> : <VisibilityOffIcon fill={colorScheme == 'dark' ? '#fff' : '#000'} />}
         </TouchableOpacity>
       )}
       <TouchableOpacity onPress={onEdit} className="items-center p-2 rounded-2xl">
-        <EditIcon />
+        <EditIcon fill={colorScheme == 'dark' ? '#fff' : '#000'} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onDelete} className="items-center p-2 rounded-2xl">
-        <DeleteIcon />
+        <DeleteIcon fill={colorScheme == 'dark' ? '#fff' : '#000'} />
       </TouchableOpacity>
     </View>
   );

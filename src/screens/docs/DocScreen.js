@@ -84,7 +84,7 @@ const DocScreen = ({ navigation }) => {
   }
 
   return (
-    <View className="flex-col flex-1 mx-3 bg-neutral-100">
+    <View className="flex-col flex-1 px-3 bg-neutral-100 dark:bg-neutral-950">
       <View className="py-5">
         <Header title="Docs" onAdd={onAddDoc} />
       </View>
