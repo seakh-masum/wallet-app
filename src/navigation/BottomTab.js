@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CardScreen from '../screens/cards/CardScreen';
 import DocScreen from '../screens/docs/DocScreen';
 import CreditCardIcon from '../styles/icon/CreditCardIcon';
 import TabScreen from './TabScreen';
 import DocIcon from '../styles/icon/DocIcon';
-import {StyleSheet} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import FloatingAddBtn from '../components/FloatingAddBtn';
 import { Colors } from '../styles/colors';
 
@@ -16,16 +16,22 @@ export default function BottomTab() {
   const setTabConfig = (route, focused) => {
     if (route.name === 'Cards') {
       return (
-        <CreditCardIcon
-          fill={focused ? Colors.pink : '#d5d5d5'}
-          isFocus={focused}
-          height={36}
-          width={36}
-        />
+        <View className={`${focused && 'flex-row gap-1 items-center bg-pink-100 rounded-3xl px-3 pt-1 pb-2'}`}>
+          <CreditCardIcon
+            fill={focused ? Colors.pink : '#d5d5d5'}
+            isFocus={focused}
+            height={24}
+            width={24}
+          />
+          {focused && <Text className="text-pink-500">Cards</Text>}
+        </View>
       );
     } else if (route.name === 'Docs') {
       return (
-        <DocIcon fill={focused ? Colors.violet : '#d5d5d5'} isFocus={focused} height={36} width={36} />
+        <View className={`${focused && 'flex-row gap-1 items-center bg-indigo-100 rounded-3xl px-3 pt-1 pb-2'}`}>
+          <DocIcon fill={focused ? Colors.violet : '#d5d5d5'} isFocus={focused} height={24} width={24} />
+          {focused && <Text className="text-indigo-500">Docs</Text>}
+        </View>
       );
     } else if (route.name === 'Add') {
       return (
@@ -37,15 +43,15 @@ export default function BottomTab() {
   return (
     <Tab.Navigator
       initialRouteName="Cards"
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused}) => setTabConfig(route, focused),
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => setTabConfig(route, focused),
         headerShown: false,
         tabBarStyle: styles.bottomTabBar,
         lazy: true,
         tabBarShowLabel: false,
       })}>
       <Tab.Screen name="Cards" component={CardScreen} />
-      <Tab.Screen name="Add" component={TabScreen.AddDrawer} />
+      {/* <Tab.Screen name="Add" component={TabScreen.AddDrawer} /> */}
       <Tab.Screen name="Docs" component={DocScreen} />
     </Tab.Navigator>
   );
@@ -53,14 +59,14 @@ export default function BottomTab() {
 
 const styles = StyleSheet.create({
   bottomTabBar: {
-    height: 75,
+    height: 60,
     width: '60%',
     position: 'absolute',
     bottom: 12,
     borderRadius: 20,
     left: '20%',
-    paddingTop: 4,
-    paddingBottom: 8,
+    // paddingTop: 4,
+    // paddingBottom: 4,
     zIndex: 90,
   },
 });

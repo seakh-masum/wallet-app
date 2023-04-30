@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTab from './BottomTab';
 import AddCardScreen from '../screens/cards/AddCardScreen';
 import AddDocScreen from '../screens/docs/AddDocScreen';

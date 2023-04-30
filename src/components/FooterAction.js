@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import EditIcon from '../styles/icon/EdiIcon';
 import DeleteIcon from '../styles/icon/DeleteIcon';
 import VisibilityOffIcon from '../styles/icon/VisibiltyOffIcon';
 import VisibilityIcon from '../styles/icon/VisibilityIcon';
-import {Mixins} from '../styles/mixins';
+import { Mixins } from '../styles/mixins';
 import { Colors } from '../styles/colors';
 
-const FooterAction = ({setIsShowCVV, isShowCVV, onEdit, onDelete, hasCvv}) => {
+const FooterAction = ({ setIsShowCVV, isShowCVV, onEdit, onDelete, hasCvv }) => {
   const styles = {
     actionBtn: {
       alignItems: 'center',
@@ -22,18 +22,18 @@ const FooterAction = ({setIsShowCVV, isShowCVV, onEdit, onDelete, hasCvv}) => {
     },
   };
   return (
-    <View style={styles.actionRow}>
+    <View className="flex-row justify-around bg-white p-3">
       {hasCvv && (
         <TouchableOpacity
           onPress={() => setIsShowCVV(!isShowCVV)}
-          style={styles.actionBtn}>
+          className="items-center p-2 rounded-2xl">
           {!isShowCVV ? <VisibilityIcon /> : <VisibilityOffIcon />}
         </TouchableOpacity>
       )}
-      <TouchableOpacity onPress={onEdit} style={styles.actionBtn}>
+      <TouchableOpacity onPress={onEdit} className="items-center p-2 rounded-2xl">
         <EditIcon />
       </TouchableOpacity>
-      <TouchableOpacity onPress={onDelete} style={styles.actionBtn}>
+      <TouchableOpacity onPress={onDelete} className="items-center p-2 rounded-2xl">
         <DeleteIcon />
       </TouchableOpacity>
     </View>

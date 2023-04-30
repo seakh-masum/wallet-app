@@ -7,8 +7,8 @@
  */
 
 import React from 'react';
-import {StatusBar, SafeAreaView} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { StatusBar, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import MainStackScreen from './src/navigation/MainStackScreen';
 
 const App = () => {

@@ -1,21 +1,22 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddCardScreen from '../screens/cards/AddCardScreen';
 import DocScreen from '../screens/docs/DocScreen';
 import AddDocScreen from '../screens/docs/AddDocScreen';
+import CardScreen from '../screens/cards/CardScreen';
 
 const card = createNativeStackNavigator();
 const doc = createNativeStackNavigator();
 
 const TabScreen = {
-  AddDrawer: () => {
+  CardDrawer: () => {
     return (
       <card.Navigator
-        // initialRouteName="Card"
+        initialRouteName="Card"
         screenOptions={{
           headerShown: false,
         }}>
-        <card.Screen name="AddDoc" component={AddDocScreen} />
+        <card.Screen name="Card" component={CardScreen} />
         <card.Screen name="AddCard" component={AddCardScreen} />
       </card.Navigator>
     );

@@ -1,9 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
-import { Colors } from '../styles/colors';
-import { Theme } from '../styles/theme';
-import { Mixins } from '../styles/mixins';
+import { View, TextInput } from 'react-native';
+import Label from './Label';
 
 const InputBox = props => {
   const {
@@ -18,9 +16,8 @@ const InputBox = props => {
   } = props;
   return (
     <View style={wrapperStyle}>
-      {!hideLabel && <Text style={styles.label}>{label}</Text>}
-      <TextInput
-        style={styles.input}
+      {!hideLabel && <Label>{label}</Label>}
+      <TextInput className="p-3 text-neutral-800 text-sm bg-neutral-200 rounded-lg"
         onChangeText={onChange}
         value={value}
         name={name}
@@ -32,15 +29,5 @@ const InputBox = props => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    padding: 12,
-    ...Mixins.fontStyle(Colors.text, Theme.textSm),
-    backgroundColor: Colors.inputBox,
-    borderRadius: Theme.roundedLg,
-  },
-  label: { ...Mixins.fontStyle(Colors.desc, Theme.textXs), marginBottom: 5},
-});
 
 export default InputBox;

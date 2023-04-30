@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, Pressable, StyleSheet, FlatList} from 'react-native';
-import { Colors } from '../styles/colors';
+import { Text, Pressable, FlatList } from 'react-native';
 
-const Chips = ({data, setValue, setFilterValue, value, isFilter}) => {
+
+const Chips = ({ data, setValue, setFilterValue, value, isFilter }) => {
   const onSelect = x => {
     setValue(x);
     if (isFilter) {
@@ -15,15 +15,15 @@ const Chips = ({data, setValue, setFilterValue, value, isFilter}) => {
     }
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     const bgColor = item.value == value ? '#000' : 'transparent';
     const color = item.value == value ? 'white' : '#000';
     return (
       <Pressable
         key={index}
         onPress={() => onSelect(item.value)}
-        style={{...styles.box, backgroundColor: bgColor}}>
-        <Text style={{color: color}}>{item.label}</Text>
+        style={{ backgroundColor: bgColor }} className="px-4 py-1 rounded-2xl border border-black mr-3">
+        <Text style={{ color: color }}>{item.label}</Text>
       </Pressable>
     );
   };
@@ -37,17 +37,4 @@ const Chips = ({data, setValue, setFilterValue, value, isFilter}) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {flex: 1},
-  box: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: Colors.primary,
-    marginRight: 10,
-  },
-});
-
 export default Chips;

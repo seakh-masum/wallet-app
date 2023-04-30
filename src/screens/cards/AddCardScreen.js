@@ -1,14 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
 } from 'react-native';
 import Chips from '../../components/Chips';
 import InputBox from '../../components/InputBox';
-import {cardNumber, showAlert} from '../../shared/utils';
-import Header from '../../components/Header';
+import { cardNumber, showAlert } from '../../shared/utils';
 import ColorBox from '../../components/ColorBox';
 import {
   initialFormData,
@@ -20,8 +18,10 @@ import {
 import { addFirestoreData, updateFireStoreData } from '../../services/firestore';
 import { FormStyles } from '../../styles/global-style';
 import Button from '../../components/Button';
+import Label from '../../components/Label';
+import FormWrapper from '../../components/ui/FormWrapper';
 
-const AddCardScreen = ({route, navigation}) => {
+const AddCardScreen = ({ route, navigation }) => {
   const [title, setTitle] = useState('Add Card');
   const [id, setId] = useState('');
   const [formValue, setFormValue] = useState(initialFormData);
@@ -42,7 +42,7 @@ const AddCardScreen = ({route, navigation}) => {
   }, []);
 
   const handleChange = (e, name) => {
-    setFormValue(state => ({...state, [name]: e}));
+    setFormValue(state => ({ ...state, [name]: e }));
   };
 
   const onSave = () => {
@@ -55,8 +55,8 @@ const AddCardScreen = ({route, navigation}) => {
 
     if (id) {
       updateFireStoreData(FIRESTORE_PATH.card, data, id).then(() => {
-          showAlert('Update Card', 'Card updated successfully', 'Ok', navigate('Cards'));
-        }).catch();
+        showAlert('Update Card', 'Card updated successfully', 'Ok', navigate('Cards'));
+      }).catch();
     } else {
       addFirestoreData(FIRESTORE_PATH.card, data)
         .then(() => {
@@ -75,94 +75,88 @@ const AddCardScreen = ({route, navigation}) => {
   };
 
   return (
-    <View style={FormStyles.container}>
-      <Header hasBackBtn title={title} />
-      <ScrollView style={FormStyles.inputContainer}>
-        <InputBox
-          key={1}
-          name="cardName"
-          label="Card Name"
-          onChange={e => handleChange(e, 'cardName')}
-          value={formValue.cardName}
-          placeholder="e.g. Amazon ICICI"
-          wrapperStyle={FormStyles.inputWrapper}
+    <FormWrapper title={title} btn={<Button onPress={onSave} title={'Save'} />}>
+      <InputBox
+        key={1}
+        name="cardName"
+        label="Card Name"
+        onChange={e => handleChange(e, 'cardName')}
+        value={formValue.cardName}
+        placeholder="e.g. Amazon ICICI"
+        wrapperStyle={FormStyles.inputWrapper}
+      />
+      <InputBox
+        key={2}
+        label="Card Number"
+        onChange={e => handleChange(e, 'cardNo')}
+        value={cardNumber(formValue.cardNo)}
+        placeholder="XXXX XXXX XXXX XXXX"
+        maxLength={19}
+        wrapperStyle={FormStyles.inputWrapper}
+      />
+      <View key={3} style={FormStyles.inputWrapper}>
+        <Label>Card Type</Label>
+        <Chips
+          data={CARD_TYPE}
+          setValue={setCardType}
+          value={cardType}
+          isFilter={false}
         />
-        <InputBox
-          key={2}
-          label="Card Number"
-          onChange={e => handleChange(e, 'cardNo')}
-          value={cardNumber(formValue.cardNo)}
-          placeholder="XXXX XXXX XXXX XXXX"
-          maxLength={19}
-          wrapperStyle={FormStyles.inputWrapper}
-        />
-        <View key={3} style={FormStyles.inputWrapper}>
-          <Text style={FormStyles.inputLabel}>Card Type</Text>
-          <Chips
-            data={CARD_TYPE}
-            setValue={setCardType}
-            value={cardType}
-            isFilter={false}
-          />
-        </View>
-        <InputBox
-          key={4}
-          label="Holder Name"
-          onChange={e => handleChange(e, 'holderName')}
-          value={formValue.holderName}
-          placeholder="e.g. Sk Masum"
-          wrapperStyle={FormStyles.inputWrapper}
-        />
-        <View key={5} style={FormStyles.expiryCvvWrapper}>
-          <View>
-            <Text style={FormStyles.inputLabel}>Expiry Date</Text>
-            <View style={FormStyles.expiryDateWrapper}>
-              <InputBox
-                onChange={e => handleChange(e, 'expiryMonth')}
-                value={formValue.expiryMonth}
-                hideLabel
-                maxLength={2}
-                keyboardType="number-pad"
-                placeholder="MM"
-              />
-              <Text style={FormStyles.slash}>/</Text>
-              <InputBox
-                onChange={e => handleChange(e, 'expiryYear')}
-                value={formValue.expiryYear}
-                hideLabel
-                maxLength={4}
-                keyboardType="number-pad"
-                placeholder="YYYY"
-              />
-            </View>
-          </View>
-          <InputBox
-            label="CVV"
-            onChange={e => handleChange(e, 'cvv')}
-            value={formValue.cvv}
-            maxLength={3}
-            keyboardType="number-pad"
-            placeholder="XXX"
-          />
-        </View>
-        <View key={6} style={FormStyles.inputWrapper}>
-          <Text style={FormStyles.inputLabel}>Networks</Text>
-          <Chips
-            data={CARD_NETWORK}
-            setValue={setNetwork}
-            value={network}
-            isFilter={false}
-          />
-        </View>
-        <View key={7}>
-          <Text style={FormStyles.inputLabel}>Color</Text>
-          <ColorBox data={COLORS} setValue={setColor} value={color} />
-        </View>
-      </ScrollView>
-      <View style={FormStyles.bottomContainer}>
-        <Button onPress={onSave} title={'Save'} />
       </View>
-    </View>
+      <InputBox
+        key={4}
+        label="Holder Name"
+        onChange={e => handleChange(e, 'holderName')}
+        value={formValue.holderName}
+        placeholder="e.g. Sk Masum"
+        wrapperStyle={FormStyles.inputWrapper}
+      />
+      <View key={5} className="flex-row justify-between mb-3">
+        <View>
+          <Label>Expiry Date</Label>
+          <View className="flex-row justify-center">
+            <InputBox
+              onChange={e => handleChange(e, 'expiryMonth')}
+              value={formValue.expiryMonth}
+              hideLabel
+              maxLength={2}
+              keyboardType="number-pad"
+              placeholder="MM"
+            />
+            <Text className="text-black text-2xl mx-3">/</Text>
+            <InputBox
+              onChange={e => handleChange(e, 'expiryYear')}
+              value={formValue.expiryYear}
+              hideLabel
+              maxLength={4}
+              keyboardType="number-pad"
+              placeholder="YYYY"
+            />
+          </View>
+        </View>
+        <InputBox
+          label="CVV"
+          onChange={e => handleChange(e, 'cvv')}
+          value={formValue.cvv}
+          maxLength={3}
+          keyboardType="number-pad"
+          placeholder="XXX"
+        />
+      </View>
+      <View key={6} className="mb-3">
+        <Label>Networks</Label>
+        <Chips
+          data={CARD_NETWORK}
+          setValue={setNetwork}
+          value={network}
+          isFilter={false}
+        />
+      </View>
+      <View key={7}>
+        <Label>Color</Label>
+        <ColorBox data={COLORS} setValue={setColor} value={color} />
+      </View>
+    </FormWrapper>
   );
 };
 
