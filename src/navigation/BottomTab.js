@@ -16,20 +16,21 @@ export default function BottomTab() {
   const setTabConfig = (route, focused) => {
     if (route.name === 'Cards') {
       return (
-        <View className={`${focused && 'flex-row gap-1 items-center bg-pink-100 rounded-3xl px-3 pt-1 pb-2'}`}>
+        <View className={`${focused && 'flex-row gap-1 items-center bg-pink-100 rounded-3xl pl-3 pr-4 pt-1 pb-2 transition-all'}`}>
           <CreditCardIcon
-            fill={focused ? Colors.pink : '#d5d5d5'}
+            fill={focused ? Colors.pink : '#000'}
             isFocus={focused}
-            height={24}
-            width={24}
+            height={focused ? 24 : 32}
+            width={focused ? 24 : 32}
           />
           {focused && <Text className="text-pink-500">Cards</Text>}
         </View>
       );
     } else if (route.name === 'Docs') {
       return (
-        <View className={`${focused && 'flex-row gap-1 items-center bg-indigo-100 rounded-3xl px-3 pt-1 pb-2'}`}>
-          <DocIcon fill={focused ? Colors.violet : '#d5d5d5'} isFocus={focused} height={24} width={24} />
+        <View className={`${focused && 'flex-row gap-1 items-center bg-indigo-100 rounded-3xl pl-3 pr-4 pt-1 pb-2'}`}>
+          <DocIcon fill={focused ? Colors.violet : '#000'} isFocus={focused} height={focused ? 24 : 30}
+            width={focused ? 24 : 30} />
           {focused && <Text className="text-indigo-500">Docs</Text>}
         </View>
       );
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
     bottom: 12,
     borderRadius: 20,
     left: '20%',
-    // paddingTop: 4,
-    // paddingBottom: 4,
+    paddingTop: 8,
+    paddingBottom: 4,
     zIndex: 90,
   },
 });
