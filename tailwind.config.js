@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        'xss': 9,
-      }
+        xss: 9,
+      },
     },
   },
   plugins: [],

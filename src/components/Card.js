@@ -2,9 +2,9 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { cardNumber, xxxCardNumber, copyToClipboard } from '../shared/utils';
-import MastercardIcon from '../../assets/svg/master_card.svg';
-import VisaIcon from '../../assets/svg/visa.svg';
-import RupayIcon from '../../assets/svg/rupay.svg';
+import MastercardIcon from '../styles/icon/MasterCardIcon';
+import VisaIcon from '../styles/icon/VisaIcon';
+import RupayIcon from '../styles/icon/RupayIcon';
 
 const Card = ({ data, index, isShowCVV, isView, onView, isDoc }) => {
   const { network } = data;
@@ -47,7 +47,7 @@ const Card = ({ data, index, isShowCVV, isView, onView, isDoc }) => {
         {/* Card Number */}
         <Pressable className="block mt-8" onLongPress={() => copyToClipboard(isDoc ? data.docNumber : data.cardNo)}>
           <Text className="text-black text-3xl">
-            {isView ? cardNumber(isDoc ? data.docNumber : data.cardNo) : xxxCardNumber(isDoc ? data.docNumber : data.cardNo)}
+            {isView ? (isDoc ? data.docNumber : cardNumber(data.cardNo)) : xxxCardNumber(isDoc ? data.docNumber : data.cardNo)}
           </Text>
         </Pressable>
         <View className="flex-row justify-between item-end mt-2">

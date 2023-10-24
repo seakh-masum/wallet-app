@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import { Fonts } from '../styles/typography';
+import { Fonts } from '../../styles/typography';
 
 const Button = ({ onPress, title }) => {
 

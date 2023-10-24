@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { Text, TouchableOpacity, View, useColorScheme } from 'react-native';
-import ArrowBackIcon from '../../assets/svg/arrow_back.svg';
+import ArrowBackIcon from '../styles/icon/ArrowBackIcon';
 import { useNavigation } from '@react-navigation/native';
 import { Fonts } from '../styles/typography';
 import AddIcon from '../styles/icon/AddIcon';
@@ -33,7 +33,7 @@ const Header = ({ title, isAddPage, onAdd }) => {
           },
           shadowColor: '#000',
         }} className="bg-black p-1 rounded-full dark:bg-white" onPress={onAdd}>
-          <AddIcon fill={colorScheme == 'dark' ? "#000" : "#fff"} height={24} width={24} />
+          <AddIcon fill={colorScheme === 'dark' ? '#000' : '#fff'} height={24} width={24} />
         </TouchableOpacity>
       }
     </View>

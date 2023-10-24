@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { View, TextInput, useColorScheme } from 'react-native';
 import Label from './Label';
 
-const InputBox = props => {
+const InputBox = forwardRef((props, ref) => {
   const colorScheme = useColorScheme();
   const {
     name,
@@ -18,7 +18,7 @@ const InputBox = props => {
   return (
     <View style={wrapperStyle}>
       {!hideLabel && <Label>{label}</Label>}
-      <TextInput className="p-3 text-neutral-800 text-sm bg-neutral-200 rounded-lg dark:bg-neutral-800 dark:text-white"
+      <TextInput ref={ref} className={`p-3 text-neutral-800 text-sm bg-neutral-200 rounded-lg border-2 dark:bg-neutral-800 dark:text-white`}
         onChangeText={onChange}
         value={value}
         name={name}
@@ -29,6 +29,6 @@ const InputBox = props => {
       />
     </View>
   );
-};
+});
 
 export default InputBox;

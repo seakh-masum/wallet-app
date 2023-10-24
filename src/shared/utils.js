@@ -26,6 +26,10 @@ const cardNumber = value => {
     .trim();
 };
 
+const removeSpace = value => {
+  return value.replace(/\s/g, '');
+};
+
 const xxxCardNumber = value => {
   const lastFourChars = value.substr(value.length - 4);
   const xChars = Array(13).join('X');
@@ -63,4 +67,4 @@ const shuffleArray = (array) => {
 }
 
 
-export { makeExpiryDate, cardNumber, xxxCardNumber, showAlert, copyToClipboard, transformTitleCase, shuffleArray };
+export { makeExpiryDate, cardNumber, xxxCardNumber, showAlert, copyToClipboard, transformTitleCase, shuffleArray, removeSpace };

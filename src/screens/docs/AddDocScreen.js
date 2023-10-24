@@ -14,7 +14,7 @@ import {
 } from '../../shared/constant';
 import { addFirestoreData, updateFireStoreData } from '../../services/firestore';
 import { FormStyles } from '../../styles/global-style';
-import Button from '../../components/Button';
+import Button from '../../components/ui/Button';
 import FormWrapper from '../../components/ui/FormWrapper';
 
 const AddDocScreen = ({ route, navigation }) => {
@@ -45,12 +45,12 @@ const AddDocScreen = ({ route, navigation }) => {
 
     if (id) {
       updateFireStoreData(FIRESTORE_PATH.doc, data, id).then(() => {
-        showAlert('Update Card', 'Card updated successfully', 'Ok', navigate('Docs'));
+        showAlert('Update Card', 'Document has updated successfully', 'Ok', navigate('Docs'));
       }).catch();
     } else {
       addFirestoreData(FIRESTORE_PATH.doc, data)
         .then(() => {
-          showAlert('Add Card', 'Card added successfully', 'Ok', navigate('Docs'));
+          showAlert('Add Card', 'Document has added successfully', 'Ok', navigate('Docs'));
         })
         .catch();
     }
@@ -83,10 +83,10 @@ const AddDocScreen = ({ route, navigation }) => {
       <InputBox
         key={3}
         name="docName"
-        label="Name on the Document"
+        label="Additional Info"
         onChange={e => handleChange(e, 'docName')}
         value={formValue.docName}
-        placeholder="XXXX XXXX XXXX XXXX"
+        placeholder="Enter any additional information"
         wrapperStyle={FormStyles.inputWrapper}
       />
       <View key={4}>

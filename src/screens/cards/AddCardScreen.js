@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
 } from 'react-native';
 import Chips from '../../components/Chips';
 import InputBox from '../../components/InputBox';
-import { cardNumber, showAlert } from '../../shared/utils';
+import { cardNumber, removeSpace, showAlert } from '../../shared/utils';
 import ColorBox from '../../components/ColorBox';
 import {
   initialFormData,
@@ -17,11 +17,16 @@ import {
 } from '../../shared/constant';
 import { addFirestoreData, updateFireStoreData } from '../../services/firestore';
 import { FormStyles } from '../../styles/global-style';
-import Button from '../../components/Button';
+import Button from '../../components/ui/Button';
 import Label from '../../components/Label';
 import FormWrapper from '../../components/ui/FormWrapper';
 
 const AddCardScreen = ({ route, navigation }) => {
+  const expiryMonthRef = useRef();
+  const expiryYearRef = useRef();
+  const cvvRef = useRef();
+
+
   const [title, setTitle] = useState('Add Card');
   const [id, setId] = useState('');
   const [formValue, setFormValue] = useState(initialFormData);
@@ -41,17 +46,40 @@ const AddCardScreen = ({ route, navigation }) => {
     }
   }, []);
 
+
+
   const handleChange = (e, name) => {
+    if (name === 'cardNo') {
+      if (e.length === 19) {
+        expiryMonthRef.current?.focus();
+      }
+    }
+
+    if (name === 'expiryMonth') {
+      if (e.length === 2) {
+        expiryYearRef.current?.focus();
+      }
+    }
+
+    if (name === 'expiryYear') {
+      if (e.length === 2) {
+        cvvRef.current?.focus();
+      }
+    }
     setFormValue(state => ({ ...state, [name]: e }));
   };
 
   const onSave = () => {
+    const cardNo = removeSpace(formValue.cardNo);
     const data = {
       ...formValue,
       network,
       cardType,
       color,
+      cardNo
     };
+
+    console.log(data);
 
     if (id) {
       updateFireStoreData(FIRESTORE_PATH.card, data, id).then(() => {
@@ -75,6 +103,7 @@ const AddCardScreen = ({ route, navigation }) => {
 
   return (
     <FormWrapper title={title} btn={<Button onPress={onSave} title={'Save'} />}>
+      {/* Card Name */}
       <InputBox
         key={1}
         name="cardName"
@@ -83,16 +112,9 @@ const AddCardScreen = ({ route, navigation }) => {
         value={formValue.cardName}
         placeholder="e.g. Amazon ICICI"
         wrapperStyle={FormStyles.inputWrapper}
+        autoFocus={true}
       />
-      <InputBox
-        key={2}
-        label="Card Number"
-        onChange={e => handleChange(e, 'cardNo')}
-        value={cardNumber(formValue.cardNo)}
-        placeholder="XXXX XXXX XXXX XXXX"
-        maxLength={19}
-        wrapperStyle={FormStyles.inputWrapper}
-      />
+      {/* Card Type */}
       <View key={3} style={FormStyles.inputWrapper}>
         <Label>Card Type</Label>
         <Chips
@@ -102,19 +124,23 @@ const AddCardScreen = ({ route, navigation }) => {
           isFilter={false}
         />
       </View>
+      {/* Card Number */}
       <InputBox
-        key={4}
-        label="Holder Name"
-        onChange={e => handleChange(e, 'holderName')}
-        value={formValue.holderName}
-        placeholder="e.g. Sk Masum"
+        key={2}
+        label="Card Number"
+        keyboardType="number-pad"
+        onChange={e => handleChange(e, 'cardNo')}
+        value={cardNumber(formValue.cardNo)}
+        placeholder="XXXX XXXX XXXX XXXX"
+        maxLength={19}
         wrapperStyle={FormStyles.inputWrapper}
       />
+      {/* Expiry Date */}
       <View key={5} className="flex-row justify-between mb-3">
         <View>
           <Label>Expiry Date</Label>
           <View className="flex-row justify-center">
-            <InputBox
+            <InputBox ref={expiryMonthRef}
               onChange={e => handleChange(e, 'expiryMonth')}
               value={formValue.expiryMonth}
               hideLabel
@@ -122,18 +148,18 @@ const AddCardScreen = ({ route, navigation }) => {
               keyboardType="number-pad"
               placeholder="MM"
             />
-            <Text className="text-black text-2xl mx-3">/</Text>
-            <InputBox
+            <Text className="text-black text-2xl mx-3 pt-2 dark:text-neutral-200">/</Text>
+            <InputBox ref={expiryYearRef}
               onChange={e => handleChange(e, 'expiryYear')}
               value={formValue.expiryYear}
               hideLabel
-              maxLength={4}
+              maxLength={2}
               keyboardType="number-pad"
               placeholder="YYYY"
             />
           </View>
         </View>
-        <InputBox
+        <InputBox ref={cvvRef}
           label="CVV"
           onChange={e => handleChange(e, 'cvv')}
           value={formValue.cvv}
@@ -142,6 +168,17 @@ const AddCardScreen = ({ route, navigation }) => {
           placeholder="XXX"
         />
       </View>
+
+      {/* Holder Name */}
+      <InputBox
+        key={4}
+        label="Holder Name"
+        onChange={e => handleChange(e, 'holderName')}
+        value={formValue.holderName}
+        placeholder="e.g. Sk Masum"
+        wrapperStyle={FormStyles.inputWrapper}
+      />
+      {/* Networks */}
       <View key={6} className="mb-3">
         <Label>Networks</Label>
         <Chips
@@ -151,6 +188,7 @@ const AddCardScreen = ({ route, navigation }) => {
           isFilter={false}
         />
       </View>
+      {/* Colors */}
       <View key={7}>
         <Label>Color</Label>
         <ColorBox data={COLORS} setValue={setColor} value={color} />

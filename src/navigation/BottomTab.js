@@ -5,8 +5,7 @@ import CardScreen from '../screens/cards/CardScreen';
 import DocScreen from '../screens/docs/DocScreen';
 import CreditCardIcon from '../styles/icon/CreditCardIcon';
 import DocIcon from '../styles/icon/DocIcon';
-import { StyleSheet, View, Text, useColorScheme } from 'react-native';
-import FloatingAddBtn from '../components/FloatingAddBtn';
+import { View, Text, useColorScheme } from 'react-native';
 import { Colors } from '../styles/colors';
 
 export default function BottomTab() {
@@ -45,8 +44,6 @@ export default function BottomTab() {
           {focused && <Text className="text-indigo-500">Docs</Text>}
         </View>
       );
-    } else if (route.name === 'Add') {
-      return <FloatingAddBtn />;
     }
   };
 
